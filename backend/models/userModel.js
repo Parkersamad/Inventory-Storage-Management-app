@@ -17,17 +17,7 @@ email: {
         "Please add a valid email",
     ],
 },
-phone: {
-    type: String,
-    default: "+234",
-    required : [true, "Please add a phone number"],
-    unique: true,
-    trim: true,
-    match: [
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/,
-        "Please add a valid phone number",
-    ],
-},
+
 password: {
     type: String,
     required : [true, "Please add a password"],
@@ -46,5 +36,5 @@ photo: {
     timestamps: true,
 })
 
-const user = mongoose.model(user, userSchema)
-module.exports = user;
+const User = mongoose.model("User", userSchema)
+module.exports = User;
