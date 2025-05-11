@@ -7,7 +7,7 @@ const generateToken = (id) => {
         expiresIn: '1d',
     });
 }
-
+// Register a new user
 const registerUser = asyncHandler (async (req, res) => {
     const { name, email, password, phone} = req.body;
 
@@ -69,6 +69,14 @@ const registerUser = asyncHandler (async (req, res) => {
 
 });
 
+
+// Login user
+const loginUser = asyncHandler( async (req, res) => {
+
+    res.send("Login User")
+});
+
 module.exports = {
-    registerUser
+    registerUser,
+    loginUser,
 };
