@@ -17,13 +17,21 @@ email: {
         "Please add a valid email",
     ],
 },
-
 password: {
     type: String,
     required : [true, "Please add a password"],
     minLength: [6, "Password must be at least 6 characters"],
-    maxLength: [23, "Password must be less than 23 characters"],
     trim: true,
+},
+phone: {
+    type: String,
+    required : [true, "Please add a phone number"],
+    unique: false,
+    trim: true,
+    match: [
+        /^((\+91-?)|0)?[789]\d{9}$/,
+        "Please add a valid phone number",
+    ],
 },
 photo: {
     type: String,
