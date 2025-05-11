@@ -21,6 +21,7 @@ password: {
     type: String,
     required : [true, "Please add a password"],
     minLength: [6, "Password must be at least 6 characters"],
+    // maxLength: [23, "Password must be at most 23 characters"],
     trim: true,
 },
 phone: {
