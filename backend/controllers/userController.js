@@ -121,7 +121,24 @@ else {
 }
 
 });
+
+// Logout user
+const logout = asyncHandler (async (req, res) => {
+
+       // Send HTTP-only cookie
+   res.cookie("token", "", {
+    path: "/",
+    expires: new Date(0), // expire the cookie right away
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+   });
+   return res.status(200).json({ message: "Logged out successfully" });
+});
+
+
 module.exports = {
     registerUser,
     loginUser,
+    logout,
 };
