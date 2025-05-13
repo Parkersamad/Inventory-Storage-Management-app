@@ -87,12 +87,22 @@ if (!user) {
     throw new Error("User not found please signup");
 }
 
-// user exist, check if password is correct
+// User exists, check if passowrd is correct
 const isPasswordCorrect = await bcrypt.compare(password, user.password);
-if (!isPasswordCorrect) {
-    res.status(400);
-    throw new Error("Incorrect password");
-}
+
+// generate token
+    const token = generateToken(user._id);
+
+   // Send HTTP-only cookie
+   res.cookie("token", token, {
+    path: "/",
+    expires: new Date(Date.now() + 1000 * 86400), // 1 day
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+   });
+
+
 if (user && isPasswordCorrect) {
     const {_id, name , email, password, phone, photo} = user;
     res.status(200).json({
@@ -102,7 +112,7 @@ if (user && isPasswordCorrect) {
         password,
         phone,
         photo,
-      //token,
+        token,
     })
 }
 else {
