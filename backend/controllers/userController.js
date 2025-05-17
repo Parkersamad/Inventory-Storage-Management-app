@@ -149,16 +149,50 @@ const getUser = asyncHandler(async (req, res) => {
   }
 });
 
-
 // Get loggen status
-const loginStatus = asyncHandler(async(req, res)=>{
-    res.send("LOgin status")
+const loginStatus = asyncHandler(async (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    res.json(false);
+  }
+  // verify token
+  const verified = jwt.verify(token, process.env.JWT_SECRET);
+  if (verified) {
+    res.json(true);
+  } else {
+    res.json(false);
+  }
 });
 
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    const {name, email, phone, photo } = user;
+    user.email = email;
+    user.name = req.body.name || name;
+    user.phone = req.body.phone || phone;
+    user.photo = req.body.photo || photo;
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      phone: updatedUser.phone,
+      photo: updatedUser.photo,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
 module.exports = {
   registerUser,
   loginUser,
   logout,
   getUser,
   loginStatus,
+  updateUser,
 };
