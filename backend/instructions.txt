@@ -1,10 +1,9 @@
-
-
-
-
-
-
-
+// Forgot passowrd process
+#1. User clicks on forgot passowrd
+#2. Create a reset token (string) and save in our database
+#3. Send reset token to user email in the form of a link
+#4. When user clicks the link, compare the reset token in the link with that saved in the database
+#5. If they match, chnage reset the user's password
 
 
 // Forget passowrd steps.
