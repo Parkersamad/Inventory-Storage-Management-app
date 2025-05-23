@@ -1,0 +1,14 @@
+
+
+
+
+
+
+
+
+
+// Forget passowrd steps.
+#1. Create forget password route
+#2. Create Token Model
+#3. Create Email Sender
+4#. Create controler function 
