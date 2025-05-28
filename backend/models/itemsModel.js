@@ -27,15 +27,38 @@ const itemSchema = mongoose.Schema(
       required: [true, "Please add a quantity"],
       trim: true,
     },
-    price: {
-        type: string,
-        required: [true, "Please add a price"],
-        min: [0, "Price cannot be negative"],
+    unit: {
+      type: String,
+      required: [true, "Please the a unit"],
+      trim: true,
+    },
+    location: {
+      type: String,
+      required: [true, "Please add the item location"],
+      trim: true,
     },
     description: {
       type: String,
-      required: [true, "Please add a description"],
+      required: [true, "Please the item description"],
       trim: true,
+    },
+    costPrice: {
+      type: Number,
+      required: [true, "Please add the cost price of the item"],
+      min: [0, "Cost price cannot be negative"],
+    },
+    sellingPrice: {
+      type: Number,
+      required: [true, "Please add the selling price for the item"],
+      min: [0, "Selling price cannot be negative"],
+    },
+    addedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    lastUpdatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {
