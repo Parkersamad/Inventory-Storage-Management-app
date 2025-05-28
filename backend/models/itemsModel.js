@@ -2,20 +2,10 @@ const mongoose = require("mongoose");
 
 const itemSchema = mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "User",
-    },
     name: {
       type: String,
       required: [true, "Please add an item name"],
       trim: true,
-    },
-    price: {
-      type: Number,
-      required: [true, "Please add a price"],
-      min: [0, "Price cannot be negative"],
     },
     category: {
       type: String,
