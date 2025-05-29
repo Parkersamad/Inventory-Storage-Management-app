@@ -6,6 +6,7 @@ const itemSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add an item name"],
       trim: true,
+      unique: true,
     },
     category: {
       type: String,

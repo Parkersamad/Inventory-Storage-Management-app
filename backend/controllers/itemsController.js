@@ -63,12 +63,14 @@ const createItem = asyncHandler(async (req, res) => {
 
 // Get all items
 const getAllItems = asyncHandler(async (req, res) => {
-  const items = await Item.find({ })
+  const items = await Item.find({})
     .sort("-createdAt")
     .populate("addedBy", "name email")
     .populate("lastUpdatedBy", "name email");
   res.status(200).json(items);
 });
+
+// Get a single item by name
 
 module.exports = {
   createItem,
