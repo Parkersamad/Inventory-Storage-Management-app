@@ -72,7 +72,25 @@ const getAllItems = asyncHandler(async (req, res) => {
 
 // Get a single item by name
 
+const getItemByName = asyncHandler(async (req, res) => {
+  const itemName = req.params.name;
+
+  //find item by matching name and populate the addedBy field
+  // Also make it cahse insensitive
+  const item = await Item.findOne({ name: new RegExp(itemName, "i") })
+    .populate("addedBy", "name email")
+    .populate("lastUpdatedBy", "name email");
+
+  if (!item) {
+    res.status(404);
+    throw new Error("Item not found");
+  } else {
+    res.status(200).json(item);
+  }
+});
+
 module.exports = {
   createItem,
   getAllItems,
+  getItemByName,
 };
