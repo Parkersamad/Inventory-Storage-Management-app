@@ -89,8 +89,15 @@ const getItemByName = asyncHandler(async (req, res) => {
   }
 });
 
+// updating an item
+const updateItem = asyncHandler(async (req, res) => {
+  const { category, quantity, unit, location, description, costPrice, sellingPrice } = req.body;
+  const { name} = req.params.name;
+});
+
 module.exports = {
   createItem,
   getAllItems,
   getItemByName,
+  updateItem,
 };
