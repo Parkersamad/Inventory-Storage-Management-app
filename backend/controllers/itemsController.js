@@ -91,8 +91,16 @@ const getItemByName = asyncHandler(async (req, res) => {
 
 // updating an item
 const updateItem = asyncHandler(async (req, res) => {
-  const { category, quantity, unit, location, description, costPrice, sellingPrice } = req.body;
-  const { name} = req.params.name;
+  const {
+    category,
+    quantity,
+    unit,
+    location,
+    description,
+    costPrice,
+    sellingPrice,
+  } = req.body;
+  const { name } = req.params.name;
 
   const item = await Item.findOne({ name: new RegExp(name, "i") });
   if (!item) {
@@ -119,16 +127,19 @@ const updateItem = asyncHandler(async (req, res) => {
       sellingPrice: sellingPrice || item.sellingPrice,
       lastUpdatedBy: req.user.id, // Update the lastUpdatedBy field
     },
-    { new: true ,
+    {
+      new: true,
       runValidators: true, // Ensure that the updated fields are validated
     } // Return the updated document
-  ).populate("addedBy", "name email").populate("lastUpdatedBy", "name email");
+  )
+    .populate("addedBy", "name email")
+    .populate("lastUpdatedBy", "name email");
   res.status(200).json(updatedItem);
 });
 
 // delete an item
 const deleteItem = asyncHandler(async (req, res) => {
-  const {name}= req.params;
+  const { name } = req.params;
   // Find the item by name
   // Make it case insensitive
   const item = await Item.findOne({ name: new RegExp(name, "i") });
@@ -143,7 +154,7 @@ const deleteItem = asyncHandler(async (req, res) => {
   }
   // Delete the item by name
   // Use deleteOne to remove the item from the database
-  await Item.deleteOne({_id: item._id }); 
+  await Item.deleteOne({ _id: item._id });
   res.status(200).json({ message: "Item deleted successfully" });
 });
 
