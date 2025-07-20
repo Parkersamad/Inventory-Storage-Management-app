@@ -5,8 +5,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const userRoute = require("./routes/userRoute");
 const itemsRoute = require("./routes/itemsRoute");
+const adminRoute = require("./routes/adminRoute");
 const errorHandler = require("./middleware/errorMiddleware");
 const cookieParser = require("cookie-parser");
+
+
 
 const app = express();
 
@@ -20,6 +23,7 @@ app.use(cors());
 //Routes Middlewears
 app.use("/api/users", userRoute);
 app.use("/api/items", itemsRoute);
+app.use("/api/admin",adminRoute);
 
 
 

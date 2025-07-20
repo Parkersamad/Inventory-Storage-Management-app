@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-const userSchema = mongoose.Schema(
+const adminSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Please add a name"],
       trim: true,
+      required: [true, "Please add a name"],
     },
     email: {
       type: String,
@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a password"],
       minLength: [6, "Password must be at least 6 characters"],
-      // maxLenght: [23, "Password must be at most 23 characters"],
+      // maxLength: [23, "Password must be at most 23 characters"],
       trim: true,
     },
     phone: {
@@ -44,7 +44,7 @@ const userSchema = mongoose.Schema(
 );
 
 // Encrypt password before saving to DB
-userSchema.pre("save", async function (next) {
+adminSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
   }
@@ -55,5 +55,5 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+const Admin = mongoose.model("Admin", adminSchema);
+module.exports = Admin;
