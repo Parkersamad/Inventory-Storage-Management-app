@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const { resolveContent } = require("nodemailer/lib/shared");
 
 const userSchema = mongoose.Schema(
   {
@@ -17,6 +18,7 @@ const userSchema = mongoose.Schema(
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/,
         "Please add a valid email",
       ],
+
     },
     password: {
       type: String,
@@ -37,6 +39,33 @@ const userSchema = mongoose.Schema(
       default:
         "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart-Background.png",
     },
+    role: {
+      type: String,
+      enum: ["admin", "manager","supervisor","user"],
+      default: "user",
+    },
+    permissions: {
+      createItem: { type: Boolean, default: true },
+      updateItem: { type: Boolean, default: true },
+      deleteItem: { type: Boolean, default: false },
+      viewReports: { type: Boolean, default: false },
+      manageUsers: { type: Boolean, default: false },
+      deleteUsers: { type: Boolean, default: false },
+      manageItems: { type: Boolean, default: false },
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    lastLogin: {
+      type: Date,
+      default: Date.now,
+    },
+    lastLogout: {
+      type: Date,
+      default: Date.now,
+    },
+    
   },
   {
     timestamps: true,
